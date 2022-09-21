@@ -1,0 +1,17 @@
+library(readxl)
+library(ggplot2)
+library(ggpubr)
+library(dplyr)
+library(ggsignif)
+library(RColorBrewer)
+ 
+ ggplot(met_data, aes(x = `Metabolite Content`, y = `Test Group`, group_by(`Exp Number`),
+                                fill = `Metabolite`, alpha = 0.6)) + 
+  geom_boxplot() + 
+  facet_wrap(~Metabolite, scales = "free") +
+  coord_flip() + 
+  theme_bw() +
+  scale_fill_brewer(palette = "Set3") +
+  xlab("Metabolite Content (microMol/g tissue)") +
+  ylab(NULL) +
+  theme(axis.title.x = element_text(size = 22))
