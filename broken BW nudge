@@ -1,0 +1,24 @@
+mass_gain_all %>% 
+  select(group, time, mass, experiment) %>% 
+  #filter(group == "control flush" | group == "control flush + HMP") %>% 
+  filter(time == "initial mass" | time == "final mass") %>% 
+  ggplot(aes(x = mass, y = mass, group_by(group), fill = group)) +
+  geom_boxplot(data = mass_gain_all %>%
+                 filter(time == "initial mass"),
+               position = position_nudge(+0.2),
+               width = 0.5) +
+  geom_boxplot(data = mass_gain_all %>%
+                 filter(time == "final mass"), 
+                        position = position_nudge(-0.2),
+               width = 0.5) +
+  geom_point(data = mass_gain_all %>%
+               filter(time == "initial mass"),
+             position = position_nudge(-0.1)) +
+  geom_point(data = mass_gain_all %>%
+               filter(time == "final mass"), 
+             position = position_nudge(+0.1)) +
+  theme_bw() +
+  facet_wrap(~group) +
+  geom_line(aes(group = experiment),
+            position = position_nudge(x = c(0.1, -0.1)))
+            
